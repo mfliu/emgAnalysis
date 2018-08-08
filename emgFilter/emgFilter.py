@@ -198,10 +198,6 @@ class EmgFilterApp(App):
 		from kivy.core.window import Window
 		return FilterModule()
 
-#def run():
-	#PROCESS_QUEUE = q
-	#print(PROCESS_QUEUE.get())
-#	EmgFilterApp().run()
 
 if __name__ == '__main__':
 	EmgFilterApp().run() 
