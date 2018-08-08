@@ -83,6 +83,13 @@ class EmgControl(BoxLayout):
 				msg_data = md.MDF_SHUT_DOWN()
 				self.mod.DisconnectFromMMM()
 				print("Emergency stop; Dragonfly thread closed")
+			if filters_mpQ.empty() == False:
+				filters = filters_mpQ.get(block=False)
+				self.filters = filters
+				if len(filters) == 0:
+					self.filterOn = False
+				else:
+					self.filterOn = True
 			time.sleep(0.001)
 
 	def emgPlotter(self):
@@ -90,13 +97,6 @@ class EmgControl(BoxLayout):
 		mmDiffTime = np.memmap(self.data_diffTime_path, dtype='uint32', mode='r', shape=(BUFFER_LENGTH)) 
 		emgPlot = self.get_root_window().children[-1].ids['plotMuscle']
 		time.sleep(0.5)
-		if filters_mpQ.empty() == False:
-			filters = filters_mpQ.get(block=False)
-			self.filters = filters
-			if len(filters) == 0:
-				self.filterOn = False
-			else:
-				self.filterOn = True
 		Clock.schedule_interval(lambda dt: emgPlot.update_plot(mmDiff, mmDiffTime, self.filters, self.filterOn), 0.001)
 
 class EMGButtons(GridLayout):
@@ -161,7 +161,6 @@ class EMGFigure(BoxLayout):
 		lines[0].set_xdata(np.arange(0, timescale,  0.0005)) # 0.002)) # 
 		lines[0].set_ydata(mmDiff[m_idx, -1*SAMPLES:])
 		ax.draw_artist(lines[0])
-		filterOn = False
 		if filterOn:
 			for f in filters:
 				filteredData = signal.filtfilt(f[0], f[1], mmDiff[m_idx, -SAMPLES:])
