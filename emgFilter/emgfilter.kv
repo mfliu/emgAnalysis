@@ -1,0 +1,392 @@
+<FilterModule>:
+  canvas:
+    Color:
+      rgb: 0.3, 0.3, 0.3
+    Rectangle:
+      pos: self.pos 
+      size: self.width, self.height
+  GridLayout
+    rows: 3
+    spacing: [0, 20]
+    padding: [50, 100]
+
+    FilterSettings
+      id: filter1 
+      rows: 2
+      Label:
+        text:"Filter 1 Type:"
+        size_hint_y: 0.1
+        valign: 'top'
+        halign: 'left'
+      ToggleButton:
+        text: "Butterworth"   
+        size_hint_y: 0.1
+        group: "filter1type"
+        on_release: filter1.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Chebyshev 1"
+        size_hint_y: 0.1
+        group: "filter1type"
+        on_release: filter1.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Chebyshev 2"
+        size_hint_y: 0.1
+        group: "filter1type"
+        on_release: filter1.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Notch"
+        size_hint_y: 0.1
+        group: "filter1type"
+        on_release: filter1.set_filter_types(self.group, self.state, self.text)
+      GridLayout
+        rows: 1
+        spacing: 10
+        padding: [0.1*self.width, 0.2*self.height]
+        Label:
+          id: filter1LowLabel
+          text: "Cutoff \nFrequency \nLow (Hz)"
+          size_hint_y: 0.01
+          group: "filter1pass"
+          halign: "center"
+        TextInput:
+          id: filter1Low
+          size_hint_y: 0.01
+          group: "filter1pass"
+          multiline: False 
+          hint_text: "e.g. 200 (Hz)"
+          input_filter: "int"
+          on_text_validate: filter1.on_enter("filter1Low", self.text) 
+      Switch:
+        id: filter1Switch
+        on_active: filter1.set_filter_settings(self.group, self.active)
+        group: "filter1"
+
+      Label:
+        text: "Filter 1 Pass:"
+        size_hint_y: 0.1
+        valign: "bottom"
+        halign: "left"
+      ToggleButton:
+        id: filter1highpass
+        text: "Highpass"
+        size_hint_y: 0.1
+        group: "filter1pass"
+        on_release: filter1.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter1lowpass
+        text: "Lowpass"
+        size_hint_y: 0.1
+        group: "filter1pass"
+        on_release: filter1.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter1bandpass
+        text: "Bandpass"
+        size_hint_y: 0.1
+        group: "filter1pass"
+        on_release: filter1.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter1bandstop
+        text: "Bandstop"
+        size_hint_y: 0.1
+        group: "filter1pass"
+        on_release: filter1.set_filter_pass(self.group, self.state, self.text)
+      GridLayout
+        rows: 1
+        spacing: 10
+        padding: [0.1*self.width, 0.2*self.height]
+        Label:
+          id: filter1HighLabel
+          text: "Cutoff \nFrequency \nHigh (Hz):"
+          size_hint_y: 0.01
+          group: "filter1pass"
+          halign: "center"
+        TextInput:
+          id: filter1High
+          size_hint_y: 0.01
+          group: "filter1pass"
+          multiline: False 
+          hint_text: "e.g. 200 (Hz)"
+          input_filter: "int"
+          on_text_validate: filter1.on_enter("filter1High", self.text)
+      GridLayout
+        rows: 2
+        spacing: 10
+        padding: [0.1*self.width, 0*self.height] 
+        Label:
+          text: "Order"
+          size_hint_y: 0.01
+          group: "filter1order"
+          halign: "center"
+        TextInput:
+          size_hint_y: 0.01
+          group: "filter1order"
+          multiline: False
+          hint_text: "e.g. 4"
+          input_filter: "int"
+          on_text_validate: filter1.on_enter("filter1order", self.text)
+        Label:
+          text: "Ripple/\nAttenuation"
+          size_hint_y: 0.01
+          group: "filter1cheby"
+          halign: "center"
+        TextInput:
+          size_hint_y: 0.01
+          id: filter1cheby
+          multiline: False
+          hint_text: "> 0 dB"
+          input_filter: "float"
+          disabled: True
+          on_text_validate: filter1.on_enter("filter1cheby", self.text) 
+    
+    FilterSettings:
+      id: filter2
+      rows: 2
+      Label:
+        text:"Filter 2 Type:"
+        size_hint_y: 0.1
+        valign: 'top'
+        halign: 'left'
+      ToggleButton:
+        text: "Butterworth"   
+        size_hint_y: 0.1
+        group: "filter2type"
+        on_release: filter2.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Chebyshev 1"
+        size_hint_y: 0.1
+        group: "filter2type"
+        on_release: filter2.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Chebyshev 2"
+        size_hint_y: 0.1
+        group: "filter2type"
+        on_release: filter2.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Notch"
+        size_hint_y: 0.1
+        group: "filter2type"
+        on_release: filter2.set_filter_types(self.group, self.state, self.text) 
+      GridLayout
+        rows: 1
+        spacing: 10
+        padding: [0.1*self.width, 0.2*self.height]
+        Label:
+          text: "Cutoff \nFrequency \n Low(Hz):"
+          size_hint_y: 0.05
+          group: "filter2pass"
+          halign: "center"
+        TextInput:
+          id: filter2Low
+          size_hint_y: 0.05
+          group: "filter2pass"
+          multiline: False
+          hint_text: "e.g. 200 (Hz)"
+          input_filter: "int"
+          on_text_validate: filter2.on_enter("filter2Low", self.text)
+      Switch: 
+        id: filter2Switch
+        on_active: filter2.set_filter_settings(self.group, self.active)
+        group: "filter2"
+
+      Label:
+        text: "Filter 2 Pass:"
+        size_hint_y: 0.1
+        valign: "bottom"
+        halign: "left"
+      ToggleButton:
+        id: filter2highpass
+        text: "Highpass"
+        size_hint_y: 0.1
+        group: "filter2pass"
+        on_release: filter2.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter2lowpass
+        text: "Lowpass"
+        size_hint_y: 0.1
+        group: "filter2pass"
+        on_release: filter2.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter2bandpass
+        text: "Bandpass"
+        size_hint_y: 0.1
+        group: "filter2pass"
+        on_release: filter2.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter2bandstop
+        text: "Bandstop"
+        size_hint_y: 0.1
+        group: "filter2pass"
+        on_release: filter2.set_filter_pass(self.group, self.state, self.text)
+      GridLayout
+        rows: 1
+        spacing: 10
+        padding: [0.1*self.width, 0.2*self.height] 
+        Label:
+          id: filter2HighLabel
+          text: "Cutoff \nFrequency \nHigh (Hz)"
+          size_hint_y: 0.05
+          halign: "center"
+          group: "filter2pass"
+        TextInput:
+          id: filter2High
+          size_hint_y: 0.05
+          group: "filter2pass"
+          multiline: False
+          hint_text: "e.g. 200 (Hz)"
+          input_filter: "int"
+          on_text_validate: filter2.on_enter("filter2High", self.text)
+      GridLayout
+        rows: 2
+        spacing: 10
+        padding: [0.1*self.width, 0*self.height] 
+        Label:
+          text: "Order"
+          size_hint_y: 0.01
+          group: "filter2order"
+          halign: "center"
+        TextInput:
+          size_hint_y: 0.01
+          group: "filter2order"
+          multiline: False
+          hint_text: "e.g. 4"
+          input_filter: "int"
+          on_text_validate: filter2.on_enter("filter2order", self.text)
+        Label:
+          text: "Ripple/\nAttenuation"
+          size_hint_y: 0.01
+          group: "filter2cheby"
+          halign: "center"
+        TextInput:
+          size_hint_y: 0.01
+          id: filter2cheby
+          multiline: False
+          hint_text: "> 0 dB"
+          input_filter: "float"
+          disabled: True
+          on_text_validate: filter2.on_enter("filter2cheby", self.text) 
+
+    FilterSettings:
+      id: filter3
+      rows: 2
+      Label:
+        text:"Filter 3 Type:"
+        size_hint_y: 0.1
+        valign: 'top'
+        halign: 'left'
+      ToggleButton: 
+        text: "Butterworth"   
+        size_hint_y: 0.1
+        group: "filter3type"
+        on_release: filter3.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Chebyshev 1"
+        size_hint_y: 0.1
+        group: "filter3type"
+        on_release: filter3.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Chebyshev 2"
+        size_hint_y: 0.1
+        group: "filter3type"
+        on_release: filter3.set_filter_types(self.group, self.state, self.text)
+      ToggleButton:
+        text: "Notch"
+        size_hint_y: 0.1
+        group: "filter3type"
+        on_release: filter3.set_filter_types(self.group, self.state, self.text)
+      GridLayout
+        rows: 1
+        spacing: 10
+        padding: [0.1*self.width, 0.2*self.height]
+        Label:
+          text: "Cutoff \nFrequency \nLow(Hz):"
+          size_hint_y: 0.05
+          halign: "center"
+          group: "filter3pass"
+        TextInput:
+          id: filter3Low
+          size_hint_y: 0.05
+          group: "filter3pass"
+          multiline: False 
+          hint_text: "e.g. 200 (Hz)"
+          input_filter: "int"
+          on_text_validate: filter3.on_enter("filter3Low", self.text)
+      Switch:
+        id: filter3Switch
+        on_active: filter3.set_filter_settings(self.group, self.active)
+        group: "filter3"
+
+      Label:
+        text: "Filter 3 Pass:"
+        size_hint_y: 0.1
+        valign: "bottom"
+        halign: "left"
+      ToggleButton:
+        id: filter3highpass
+        text: "Highpass"
+        size_hint_y: 0.1
+        group: "filter3pass"
+        on_release: filter3.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter3lowpass
+        text: "Lowpass"
+        size_hint_y: 0.1
+        group: "filter3pass"
+        on_release: filter3.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter3bandpass
+        text: "Bandpass"
+        size_hint_y: 0.1
+        group: "filter3pass"
+        on_release: filter3.set_filter_pass(self.group, self.state, self.text)
+      ToggleButton:
+        id: filter3bandstop
+        text: "Bandstop"
+        size_hint_y: 0.1
+        group: "filter3pass"
+        on_release: filter3.set_filter_pass(self.group, self.state, self.text)
+      GridLayout
+        rows: 1
+        spacing: 10
+        padding: [0.1*self.width, 0.2*self.height]
+        Label:
+          id: filter3HighLabel
+          text: "Cutoff \nFrequency \nHigh(Hz):"
+          size_hint_y: 0.1
+          halign: "center"
+          group: "filter3pass"
+        TextInput:
+          id: filter3High
+          group: "filter3pass"
+          multiline: False
+          hint_text: "e.g. 200 (Hz)"
+          input_filter: "int"
+          on_text_validate: filter3.on_enter("filter3High", self.text)
+      GridLayout
+        rows: 2
+        spacing: 10
+        padding: [0.1*self.width, 0*self.height] 
+        Label:
+          text: "Order"
+          size_hint_y: 0.01
+          group: "filter3order"
+          halign: "center"
+        TextInput:
+          size_hint_y: 0.01
+          group: "filter3order"
+          multiline: False
+          hint_text: "e.g. 4"
+          input_filter: "int"
+          on_text_validate: filter3.on_enter("filter3order", self.text)
+        Label:
+          text: "Ripple/\nAttenuation"
+          size_hint_y: 0.01
+          group: "filter3cheby"
+          halign: "center"
+        TextInput:
+          size_hint_y: 0.01
+          id: filter3cheby
+          multiline: False
+          hint_text: "> 0 dB"
+          input_filter: "float"
+          disabled: True
+          on_text_validate: filter3.on_enter("filter3cheby", self.text) 

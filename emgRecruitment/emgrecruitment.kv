@@ -1,0 +1,483 @@
+<RecruitmentAnalysis>
+  canvas:
+    Color:
+      rgb: 0.3, 0.3, 0.3
+    Rectangle:
+      pos: self.pos 
+      size: self.width, self.height
+  orientation: 'vertical'
+  padding: [10, 10]
+  GridLayout
+    size_hint_y: 0.1
+    padding: [200, 0, 200, 0]
+    rows: 1
+    Label:
+      id: stimParamsElectrodeLabel
+      text: "Electrodes: "
+      font_size: 10
+      size_hint_x: 0.3
+    Label:
+      id: stimParamsElectrode
+      text: "--"
+      font_size: 10
+      size_hint_x: 0.1
+    Label:
+      id: stimParamsPWLabel
+      text: "Pulse Width: "
+      font_size: 10
+      size_hint_x: 0.3
+    Label:
+      id: stimParamsPW
+      text: "--"
+      font_size: 10
+      size_hint_x: 0.1
+    Label: 
+      id: stimParamsAmpLabel
+      text: "Amplitude: "
+      font_size: 10
+      size_hint_x: 0.3
+    Label:
+      id: stimParamsAmp
+      text: "--"
+      font_size: 10
+      size_hint_x: 0.1
+    Label:
+      id: stimParamsFreqLabel
+      text: "Frequency: "
+      font_size: 10
+      size_hint_x: 0.3
+    Label:
+      id: stimParamsFreq
+      text: "--"
+      font_size: 10
+      size_hint_x: 0.1
+    Label:
+      id: stimParamsDurLabel
+      text: "Duration: "
+      font_size: 10
+      size_hint_x: 0.3
+    Label:
+      id: stimParamsDur
+      text: "--"
+      font_size: 10
+      size_hint_x: 0.1
+  GridLayout:
+    rows: 1
+    padding: [350, 0, 350, 0]
+    size_hint_y: 0.1
+    Label:
+      text: "RMS Window (+/- ms): "
+      size_hint_y: 0.1
+      size_hint_x: 0.2
+      font_size: 10
+    Label:
+      text: str(rmsWindow.value)
+      font_size: 10
+      size_hint_x: 0.2
+    Label:
+      text: "RMS Window"
+      font_size: 10
+      size_hint_x: 0.2
+    Slider:
+      id: rmsWindow
+      size_hint_x: 0.5
+      cursor_size: (20, 20)
+      value: 50
+      min: 10
+      max: 100
+      step: 10
+
+  RecruitmentGraph:
+    id: recGraph
+
+  BoxLayout:
+    size_hint_y: 0.1
+    orientation: 'horizontal'
+    GridLayout:
+      cols: 10
+      padding: [100, 0, 100, 10]
+      Label:
+        text: "Left X: "
+        font_size: 10
+      Label: 
+        text: leftX.text
+        font_size: 10
+      Label:
+        text: "Left X Min: "
+        font_size: 10
+      Label:
+        text: str(leftXmin.value)
+        font_size: 10
+      Label:
+        text: "Left X Max: "
+        font_size: 10
+      Label:
+        text: str(leftXmax.value)
+        font_size: 10
+      Label:
+        text: "Left Y Min: "
+        font_size: 10
+      Label:
+        text: str(leftYmin.value)
+        font_size: 10
+      Label:
+        text: "Left Y Max: "
+        font_size: 10
+      Label:
+        text: str(leftYmax.value)
+        font_size: 10
+
+      Label:
+        text: "Right X: "
+        font_size: 10
+      Label:
+        text: rightX.text
+        font_size: 10
+      Label:
+        text: "Right X Min: "
+        font_size: 10
+      Label:
+        text: str(rightXmin.value)
+        font_size: 10
+      Label:
+        text: "Right X Max: "
+        font_size: 10
+      Label:
+        text: str(rightXmax.value)
+        font_size: 10
+      Label:
+        text: "Right Y Min: "
+        font_size: 10
+      Label:
+        text: str(rightYmin.value)
+        font_size: 10
+      Label:
+        text: "Right Y Max: "
+        font_size: 10
+      Label:
+        text: str(rightYmax.value)
+        font_size: 10
+      Label:
+        text: "Pulse Muscle: "
+        font_size: 10
+      Label:
+        text: pulseMuscle.text
+        font_size: 10
+      Label:
+        text: "Pulse X (+/- ms): "
+        font_size: 10
+      Label:
+        text: str(pulseX.value)
+        font_size: 10
+      Label:
+        text: "Pulse Y(+/- uV): "
+        font_size: 10
+      Label:
+        text: str(pulseY.value)
+        font_size: 10
+
+  TabbedPanel:
+    size_hint: (1, 0.3)
+    do_default_tab: False
+    tab_height: 20
+    tab_width: 450
+    background_color: (0.3, 0.3, 0.3)
+    tab_pos: 'top_mid'
+    TabbedPanelItem:
+      text: "Plot Settings"
+      font_size: 10
+      BoxLayout:
+        orientation: 'vertical'
+        padding: [1, 20]
+        spacing: 15
+        GridLayout:
+          rows: 1
+          size_hint_y: 0.2
+          Label:
+            text: "Left  X"
+            font_size: 10
+          Spinner:
+            id: leftX
+            values: ('Amplitude', 'Frequency', 'Pulse-Width', 'Duration')
+            font_size: 10
+            on_text: recGraph.update_rms_sliders('leftX')
+          Label: 
+            text: "Left X Min"
+            font_size: 10
+          Slider:
+            id: leftXmin
+            cursor_size: (20, 20)
+            min: 0
+            max: 5000
+            step: 1000
+            on_touch_up: recGraph.update_axes()
+          Label: 
+            text: "Left X Max"
+            font_size: 10
+          Slider:
+            id: leftXmax
+            cursor_size: (20, 20)
+            min: 2000
+            max: 10000
+            step: 1000
+            on_touch_up: recGraph.update_axes()
+          Label:
+            text: "Left Y Min"
+            font_size: 10
+          Slider:
+            id: leftYmin
+            cursor_size: (20, 20)
+            min: -100
+            max: 500
+            step: 100
+            on_touch_up: recGraph.update_axes()
+          Label:
+            text: "Left Y Max"
+            font_size: 10
+          Slider:
+            id: leftYmax
+            cursor_size: (20, 20)
+            min: 100
+            max: 1000
+            step: 100
+            on_touch_up: recGraph.update_axes()
+        GridLayout:
+          rows: 1
+          size_hint_y: 0.2
+          Label:
+            text: "Right X"
+            font_size: 10
+          Spinner:
+            id: rightX
+            values: ('Amplitude', 'Frequency', 'Pulse-Width', 'Duration')
+            font_size: 10
+            on_text: recGraph.update_rms_sliders('rightX')
+          Label:
+            text: "Right X Min"
+            font_size: 10
+          Slider:
+            id: rightXmin
+            cursor_size: (20, 20)
+            min: 0
+            max: 5000
+            step: 1000
+            on_touch_up: recGraph.update_axes()
+          Label:
+            text: "Right X Max"
+            font_size: 10
+          Slider:
+            id: rightXmax
+            cursor_size: (20, 20)
+            min: 5000
+            max: 10000
+            step: 1000
+            on_touch_up: recGraph.update_axes()
+          Label:
+            text: "Right Y Min"
+            font_size: 10
+          Slider:
+            id: rightYmin
+            cursor_size: (20, 20)
+            min: -100
+            max: 1000
+            step: 100
+            on_touch_up: recGraph.update_axes()
+          Label:
+            text: "Right Y Max"
+            font_size: 10
+          Slider:
+            id: rightYmax
+            cursor_size: (20, 20)
+            min: 100
+            max: 10000
+            step: 100
+            on_touch_up: recGraph.update_axes()
+        GridLayout:
+          rows: 1
+          size_hint_y: 0.2
+          Label:
+            text: "Pulse Muscle"
+            font_size: 10
+          Spinner:
+            id: pulseMuscle
+            values: ("Left TFL", "Left RF", "Left VL", "Left BF", "Left SE", "Left TA", "Left SO", "Left LG", "Right TFL", "Right RF", "Right VL", "Right BF", "Right SE", "Right TA", "Right SO", "Right LG")
+            font_size: 10
+            on_text: recGraph.update_rms_sliders('pulseMuscle')
+          Label:
+            text: "Pulse X"
+            font_size: 10
+          Slider:
+            id: pulseX
+            cursor_size: (20, 20)
+            min: 25
+            max: 500
+            step: 5
+            on_touch_up: recGraph.update_axes()
+          Label:
+            text: "Pulse Y"
+            font_size: 10
+          Slider:
+            id: pulseY
+            cursor_size: (20, 20)
+            min: 100
+            max: 10000
+            step: 100
+            on_touch_up: recGraph.update_axes()
+
+
+    TabbedPanelItem:
+      text: "Left Recruitment Curve"
+      font_size: 10
+      GridLayout:
+        cols: 4
+        padding: [450, 0, 450, 0]
+        Label:
+          text: "Left TFL"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: leftTFL
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left TFL', self.active)
+        Label:
+          text: "Left RF"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: leftRF
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left RF', self.active)
+        Label:
+          text: "Left VL"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: leftVL
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left VL', self.active)
+        Label:
+          text: "Left BF"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: leftBF
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left BF', self.active)
+        Label:
+          text: "Left SE"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: leftSE
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left SE', self.active)
+        Label:
+          text: "Left TA"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: leftTA
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left TA', self.active)
+        Label:
+          text: "Left SO"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: leftSO
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left SO', self.active)
+        Label:
+          text: "Left LG"
+          size_hint_x: 0.2
+          font_size: 10
+        CheckBox:
+          id: leftLG
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Left LG', self.active)
+    TabbedPanelItem:
+      text: "Right Recruitment Curve"
+      font_size: 10
+      GridLayout:
+        cols: 4
+        padding: [450, 0, 450, 0]
+        Label:
+          text: "Right TFL"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightTFL
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right TFL', self.active)
+        Label:
+          text: "Right RF"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightRF
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right RF', self.active)
+        Label:
+          text: "Right VL"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightVL
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right VL', self.active)
+        Label:
+          text: "Right BF"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightBF
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right BF', self.active)
+        Label:
+          text: "Right SE"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightSE
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right SE', self.active)
+        Label:
+          text: "Right TA"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightTA
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right TA', self.active)
+        Label:
+          text: "Right SO"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightSO
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right SO', self.active)
+        Label:
+          text: "Right LG"
+          font_size: 10
+          size_hint_x: 0.2
+        CheckBox:
+          id: rightLG
+          active: False
+          size_hint_x: 0.2
+          on_active: recGraph.get_rec_lines('Right LG', self.active)

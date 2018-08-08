@@ -1,0 +1,137 @@
+<EmgControl>:
+  canvas:
+    Color:
+      rgb: 0.3, 0.3, 0.3
+    Rectangle:
+      pos: self.pos 
+      size: self.width, self.height
+  Label:
+    id: muscleName
+    text: "Right TFL"
+    size_hint_y: 0.1
+  GridLayout:
+    cols: 2
+    padding: [50, 0, 50, 0]
+    Slider:
+      id: yaxis
+      orientation: 'vertical'
+      min: 500
+      max: 10000
+      step: 500
+      size_hint_x: 0.1
+      cursor_size: (20, 20)
+      on_touch_up: plotMuscle.update_axes('yaxis')
+   
+    EMGFigure:
+      id: plotMuscle
+
+    GridLayout:
+      cols: 2
+      size_hint_y: 0.2
+      size_hint_x: 0.2
+      Label:
+        id: timescaleLabel
+        text: "Time (s): "
+        size_hint_x: 0.1
+      Label:
+        id: timescaleValue
+        text: str(timescale.value)
+        size_hint_x: 0.1
+      Label:
+        id: yLabel
+        text: "Y Axis (+/- uV): "
+        size_hint_x: 0.1
+      Label:
+        id: yValue
+        text: str(yaxis.value)
+        size_hint_x: 0.1
+    Slider:
+      id: timescale
+      min: 0.5
+      max: 5
+      step: 0.5
+      value: 1
+      cursor_size: (20, 20)
+      size_hint_y: 0.1
+      on_touch_up: plotMuscle.update_axes('timescale')
+   
+  BoxLayout
+    id: emgModule
+    orientation: 'horizontal'
+    spacing: 0
+    padding: [50, 5, 50, 5]
+    size_hint_y: 0.3
+
+    EMGButtons:
+      id: muscleButtons
+      cols: 4
+      size_hint_x: 0.5
+      ToggleButton:
+        text: "Left TFL"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Left RF"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Left VL"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Left BF"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Left SE"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Left TA"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Left SO"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Left LG"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Right TFL"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+        state: "down"
+      ToggleButton:
+        text: "Right RF"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Right VL"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Right BF"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Right SE"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Right TA"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Right SO"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+      ToggleButton:
+        text: "Right LG"
+        on_release: muscleButtons.plot_muscle(self.text, self.state)
+        group: "muscles"
+
+
+
+
