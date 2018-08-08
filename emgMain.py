@@ -33,6 +33,7 @@ def start_recruitment(settings_queue):
 	EmgRecruitmentApp(**kwargs).run()
 
 if __name__ == '__main__':
+
 	settings_queue = mp.Queue()
 	filter_queue = mp.Queue()
 	settings_queue.put([MM_IP])
@@ -42,5 +43,7 @@ if __name__ == '__main__':
 
 	plot_proc = mp.Process(target=start_plotter, args=(settings_queue, filter_queue,)).start()
 	filt_proc = mp.Process(target=start_filter, args=(settings_queue, filter_queue,)).start()
-	recruit_proc = mp.Process(target=start_recruitment, args=(settings_queue,)).start()
+	#time.sleep(2)
+	# Run recruitment in separate window, kivy doesn't like opening this and the plotter at the same time
+	#recruit_proc = mp.Process(target=start_recruitment, args=(settings_queue,)).start()
 	

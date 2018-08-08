@@ -83,7 +83,6 @@ class EmgControl(BoxLayout):
 				msg_data = md.MDF_SHUT_DOWN()
 				self.mod.DisconnectFromMMM()
 				print("Emergency stop; Dragonfly thread closed")
-
 			if filters_mpQ.empty() == False:
 				filters = filters_mpQ.get(block=False)
 				self.filters = filters
@@ -98,7 +97,6 @@ class EmgControl(BoxLayout):
 		mmDiffTime = np.memmap(self.data_diffTime_path, dtype='uint32', mode='r', shape=(BUFFER_LENGTH)) 
 		emgPlot = self.get_root_window().children[-1].ids['plotMuscle']
 		time.sleep(0.5)
-
 		Clock.schedule_interval(lambda dt: emgPlot.update_plot(mmDiff, mmDiffTime, self.filters, self.filterOn), 0.001)
 
 class EMGButtons(GridLayout):
